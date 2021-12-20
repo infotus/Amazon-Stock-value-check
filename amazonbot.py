@@ -34,7 +34,6 @@ file_list_column = [
     ],
     [
         sg.Button(button_text='Graph', key='-SHOWLINEGRAPH-'),
-        # sg.Checkbox('Show only when it was sold', size=(20,1), key='-SOLDTIMEONLY-', default=False),
         sg.Button(button_text='Delete', key='-DELETE-')
     ],    
 ]
@@ -46,8 +45,6 @@ file_viewer_column = [
 layout = [
     [
         sg.Column(file_list_column),
-        # sg.VSeperator(),
-        # sg.Column(file_viewer_column),
     ]
 ]
 window = sg.Window("Amazon Stock", layout).Finalize()
@@ -82,7 +79,6 @@ def animate(i):
 
 def linegraph(current_asin):
         graph_asin = current_asin
-        # fig = plt.figure()
         data = pd.read_csv('result'+graph_asin+'.csv')
         x = data['Time']
         y = data['Stock']
@@ -202,8 +198,6 @@ def search_thread(window):
             pass
         else:
             pass
-            # print(asn +' is not exist in the list')
-            # break
 
 def search():
     threading.Thread(target=search_thread, args=(window,), daemon=True).start()
@@ -259,13 +253,6 @@ while True:
         except:
             pass
 
-
-# Copy Paste lines
-
-    # elif event == 'Select All':
-    #     mline.Widget.selection_clear()
-    #     mline.Widget.tag_add('sel', '1.0', 'end')
-
     elif event == 'Copy':
         try:
             text = mline.Widget.selection_get()
@@ -276,19 +263,6 @@ while True:
 
     elif event == 'Paste':
         mline.Widget.insert(sg.tk.INSERT, window.TKroot.clipboard_get())
-
-    # elif event == 'Cut':
-    #     try:
-    #         text = mline.Widget.selection_get()
-    #         window.TKroot.clipboard_clear()
-    #         window.TKroot.clipboard_append(text)
-    #         mline.update('')
-    #     except:
-    #         print('Nothing selected')
-    
-    
-    # elif values['-SOLDTIMEONLY-']==True:
-    #     show_only_sold = True
 
 
 window.close()
